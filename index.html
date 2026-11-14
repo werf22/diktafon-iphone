@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<!-- Diktafón pre iPhone: stránka s obrazovkou. Logika je v app.js, vzhľad v style.css. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Obsah smie volať LEN ElevenLabs a OpenAI — kľúče z úložiska sa tak nedajú odoslať nikam inam. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.elevenlabs.io https://api.openai.com; img-src 'self' data:; media-src 'self' blob:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#0f1720">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Diktafón">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+<title>Diktafón</title>
+</head>
+<body data-state="idle">
+<main>
+  <header>
+    <h1>Diktafón</h1>
+    <button id="gear" class="ghost" aria-label="Nastavenia">⚙︎ Nastavenia</button>
+  </header>
+
+  <p id="install" class="note" hidden>Pridaj appku na plochu: dole ťukni na <b>Zdieľať</b> (štvorec so šípkou) → <b>Pridať na plochu</b>. Potom ju otváraj z plochy.</p>
+
+  <section id="pending" class="card warn" hidden>
+    <p><b>Neodoslaná nahrávka.</b> Minule sa prepis nedokončil — nahrávka je uložená v zariadení.</p>
+    <div class="row"><button id="pendingSend">Odoslať znova</button><button id="pendingDrop" class="ghost">Zahodiť</button></div>
+  </section>
+
+  <section class="center">
+    <button id="main" aria-label="Ťukni a diktuj">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V22h2v-3.1A7 7 0 0 0 19 12h-2z"/></svg>
+    </button>
+    <p id="mainLabel" class="label">Ťukni a diktuj</p>
+    <p id="timer" class="timer" hidden>0:00</p>
+    <div id="level" class="level" hidden><span></span></div>
+  </section>
+
+  <section id="msg" class="card" hidden role="status"><b id="msgTitle"></b><p id="msgText"></p><button id="retry" hidden>Skúsiť znova</button></section>
+
+  <section id="resultCard" class="card" hidden>
+    <textarea id="result" rows="8" spellcheck="false" aria-label="Výsledný text"></textarea>
+    <div class="row">
+      <button id="copy">Kopírovať</button>
+      <button id="share" class="ghost">Zdieľať</button>
+      <button id="clear" class="ghost">Zmazať</button>
+    </div>
+    <p id="copied" class="note" hidden></p>
+  </section>
+
+  <p class="note foot">Počas nahrávania nechaj appku otvorenú a obrazovku zapnutú — iPhone inak mikrofón preruší.</p>
+</main>
+
+<aside id="settings" class="sheet" hidden>
+  <div class="sheetBody">
+    <h2>Nastavenia</h2>
+    <p id="settingsNote" class="note" hidden></p>
+    <label>ElevenLabs kľúč <small id="maskEleven"></small>
+      <input id="elevenKey" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="sk_… (nechaj prázdne = bez zmeny)"></label>
+    <label>OpenAI kľúč <small id="maskOpenai"></small>
+      <input id="openaiKey" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="sk-… (nechaj prázdne = bez zmeny)"></label>
+    <label class="check"><input id="gpt" type="checkbox"> Upraviť text cez GPT (interpunkcia, „bodka", „nový odstavec"…)</label>
+    <label class="check"><input id="autoCopy" type="checkbox"> Po prepise text hneď skopírovať do schránky</label>
+    <div class="row"><button id="save">Uložiť</button><button id="close" class="ghost">Zavrieť</button></div>
+    <p id="saved" class="note" hidden></p>
+    <p class="note">Kľúče sa ukladajú iba v tomto iPhone (nie v kóde appky). Kľúč nikdy nepíš do chatu.</p>
+    <div class="row"><button id="wipe" class="ghost danger">Zmazať kľúče</button></div>
+    <h3>Log <small id="ver"></small></h3>
+    <pre id="logText"></pre>
+    <div class="row"><button id="copyLog" class="ghost">Skopírovať log</button><button id="clearLog" class="ghost">Vyčistiť log</button></div>
+  </div>
+</aside>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
