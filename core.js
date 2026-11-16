@@ -1,7 +1,7 @@
 /**
  * core.js — čistá logika Diktafónu pre iPhone (bez DOM, testovateľná v Node).
  *
- * WHAT:  prepis reči (ElevenLabs Scribe v2) a úprava textu (OpenAI GPT) — presne ten istý reťazec
+ * WHAT:  prepis reči (ElevenLabs Scribe v3) a úprava textu (OpenAI GPT) — presne ten istý reťazec
  *        ako Android appka (Pipeline.java + TextChunker.java), prepísaný do JavaScriptu.
  * WHY:   iPhone nemôže spustiť APK; táto webová appka (PWA) robí rovnakú prácu z Safari.
  * TWEAK: konštanty hneď nižšie (model, jazyk, dĺžka častí). Sieť sa dá v testoch nahradiť parametrom `f`.
@@ -9,7 +9,7 @@
  */
 
 export const ELEVEN_URL = 'https://api.elevenlabs.io/v1/speech-to-text';
-export const ELEVEN_MODEL = 'scribe_v2';
+export const ELEVEN_MODEL = 'scribe_v3';
 export const LANGUAGE = 'slk';
 export const OPENAI_URL = 'https://api.openai.com/v1/responses';
 export const GPT_MODEL = 'gpt-5.4-mini';

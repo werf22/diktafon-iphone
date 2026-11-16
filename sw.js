@@ -4,7 +4,7 @@
  * Volania na ElevenLabs/OpenAI sa sem nedostanú — iná doména, nechávame ich prehliadaču.
  * TWEAK: pri zmene súborov zvýš CACHE (v1 → v2), stará pamäť sa sama zmaže.
  */
-const CACHE = 'diktafon-ios-v1';
+const CACHE = 'diktafon-ios-v2';
 const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'core.js', 'store.js', 'settings.js', 'system_prompt.txt',
   'manifest.webmanifest', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png'];
 
